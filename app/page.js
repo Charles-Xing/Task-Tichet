@@ -1,9 +1,11 @@
+"use client"
+
 import React from "react";
 import TicketCard from "./(components)/TicketCard";
 
 const getTickets = async () => {
   try {
-    const res = await fetch("http://127.0.0.1:3000/api/Tickets", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Tickets`, {
       cache: "no-store",
     });
 
@@ -18,10 +20,17 @@ const getTickets = async () => {
 };
 
 const Dashboard = async () => {
-  const { tickets } = await getTickets();
+  const data = await getTickets();
+
+  // Make sure we have tickets needed for production build.
+  if (!data?.tickets) {
+    return <p>No tickets.</p>;
+  }
+
+  const tickets = data.tickets;
 
   const uniqueCategories = [
-    ...new Set(tickets?.map(({ category }) => category)),
+    ...new Set(tickets.map(({ category }) => category)),
   ];
 
   return (
@@ -31,7 +40,7 @@ const Dashboard = async () => {
           uniqueCategories?.map((uniqueCategory, categoryIndex) => (
             <div key={categoryIndex} className="mb-4">
               <h2>{uniqueCategory}</h2>
-              <div className="grid-cols-2 lg:grid xl:grid-cols-4 ">
+              <div className="grid-cols-2 lg:grid xl:grid-cols-4">
                 {tickets
                   .filter((ticket) => ticket.category === uniqueCategory)
                   .map((filteredTicket, _index) => (

@@ -2,7 +2,7 @@ import EditTicketForm from "@/app/(components)/EditTicketForm";
 
 const getTicketById = async (id) => {
   try {
-    const res = await fetch(`http://127.0.0.1:3000/api/Tickets/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Tickets/${id}`, {
       cache: "no-store",
     });
 
@@ -29,11 +29,7 @@ const TicketPage = async ({ params }) => {
     };
   }
 
-  return (
-    <>
-      <EditTicketForm ticket={updateTicketData} />
-    </>
-  );
+  return <EditTicketForm ticket={updateTicketData} />;
 };
 
 export default TicketPage;

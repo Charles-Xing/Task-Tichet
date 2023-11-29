@@ -1,7 +1,5 @@
 import './globals.css'
 import Nav from "./(components)/Nav"
-import Head from "next/head"
-import Link from "next/link"
 
 export const metadata = {
   title: "Ticket System",
@@ -11,7 +9,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head><Link ref="icon" href="/task.png"/></Head>
       <body>
         <div className="flex flex-col h-screen max-h-screen">
           <Nav />

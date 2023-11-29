@@ -8,7 +8,7 @@ const DeleteBlock = ({ id }) => {
   const router = useRouter();
 
   const deleteTicket = async () => {
-    const res = await fetch(`http://127.0.0.1:3000/api/Tickets/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/Tickets/${id}`, {
       method: "DELETE",
     });
     if (res.ok) {
@@ -19,7 +19,7 @@ const DeleteBlock = ({ id }) => {
   return (
     <FontAwesomeIcon
       icon={faX}
-      className="text-red-400  hover:cursor-pointer hover:text-red-200"
+      className="text-red-400 hover:cursor-pointer hover:text-red-200"
       onClick={deleteTicket}
     />
   );

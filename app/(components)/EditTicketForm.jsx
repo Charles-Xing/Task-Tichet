@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const EditTicketForm = ({ ticket }) => {
-  const EDITMODE = ticket._id === "new" ? false : true;
+  const EDITMODE = ticket._id !== "new";
   const router = useRouter();
   const startingTicketData = {
     title: "",
@@ -73,11 +73,11 @@ const EditTicketForm = ({ ticket }) => {
   ];
 
   return (
-    <div className=" flex justify-center">
+    <div className="flex justify-center ">
       <form
         onSubmit={handleSubmit}
         method="post"
-        className="flex flex-col gap-3 w-1/2"
+        className="flex flex-col w-1/2 gap-3"
       >
         <h3>{EDITMODE ? "Update Your Ticket" : "Create New Ticket"}</h3>
         <label>Title</label>
@@ -104,8 +104,8 @@ const EditTicketForm = ({ ticket }) => {
           value={formData.category}
           onChange={handleChange}
         >
-          {categories?.map((category, _index) => (
-            <option key={_index} value={category}>
+          {categories?.map((category, index) => (
+            <option key={index} value={category}>
               {category}
             </option>
           ))}
@@ -177,7 +177,7 @@ const EditTicketForm = ({ ticket }) => {
         </select>
         <input
           type="submit"
-          className="btn max-w-xs"
+          className="max-w-xs btn"
           value={EDITMODE ? "Update Ticket" : "Create Ticket"}
         />
       </form>
